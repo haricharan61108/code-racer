@@ -72,17 +72,6 @@ export const nextAuthOptions = {
     },
   },
 } satisfies AuthOptions;
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const session = await getSession({ req });
-  if (session) {
-    // Clear cookies
-    res.setHeader("Set-Cookie", [
-      `next-auth.session-token=; Max-Age=0; path=/; httponly`,
-      `next-auth.csrf-token=; Max-Age=0; path=/; httponly`,
-    ]);
-  }
-  res.status(200).json({ message: "Logged out successfully" });
-};
 
 const handler = NextAuth(nextAuthOptions);
 
